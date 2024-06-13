@@ -171,11 +171,11 @@ int main() {
     // }
 
     // double faceArea = computePolygonArea(points);
-    // fmt::print("Area of face {} of the cube: {}\n", i + 1, faceArea);
+    // fmt::print("Area of face {} of the dodecahedron: {}\n", i + 1, faceArea);
     // }
 
     // double dodeca_volume = computePolyhedronVolume(dodecaVertices, dodecaFaces);
-    // fmt::print("Volume of the cube: {}\n", dodeca_volume);
+    // fmt::print("Volume of the dodecahedron: {}\n", dodeca_volume);
 
-    return 0;
+    // return 0;
 }
