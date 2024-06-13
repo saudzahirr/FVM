@@ -80,11 +80,10 @@ double computePolyhedronVolume(const Vertices &vertices, const Faces &faces) {
 
     // Compute the area of the face (polygon)
     double area = computePolygonArea(points);
-
-    volume += xc.dot(normal) * area;
+    volume += std::abs(xc.dot(normal) * area);
   }
 
-  return std::abs(volume) / 3.0;
+  return volume / 3.0;
 }
 
 int main() {
