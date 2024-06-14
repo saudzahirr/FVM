@@ -14,7 +14,7 @@ include_directories(thirdParty/Eigen_3.4.0)
 include_directories(thirdParty/fmt-10.2.1/include)
 
 # Add the executable
-add_executable(${PROJECT_NAME} main.cpp)
+add_executable(${PROJECT_NAME} main.cpp area.cpp volume.cpp)
 
 # Link third-party libraries
 target_link_libraries(${PROJECT_NAME} fmt)
