@@ -16,16 +16,11 @@ Vector3d computePolygonVectorArea(const std::vector<Vector3d> &points) {
 
   // Normal vector on face of polygon
   Vector3d normal;
-  normal << (p2.y() - p1.y()) * (p3.z() - p1.z()) -
-                (p3.y() - p1.y()) * (p2.z() - p1.z()),
-      (p3.x() - p1.x()) * (p2.z() - p1.z()) -
-          (p2.x() - p1.x()) * (p3.z() - p1.z()),
-      (p2.x() - p1.x()) * (p3.y() - p1.y()) -
-          (p3.x() - p1.x()) * (p2.y() - p1.y());
+  normal = (p2 - p1).cross(p3 - p1);
 
   // double k = pow(normal.norm(), 2);
 
-  double signed_area =
+  double area =
       normal.z() * (points.back().x() * p1.y() - p1.x() * points.back().y()) +
       normal.x() * (points.back().y() * p1.z() - p1.y() * points.back().z()) +
       normal.y() * (points.back().z() * p1.x() - p1.z() * points.back().x());
@@ -36,12 +31,12 @@ Vector3d computePolygonVectorArea(const std::vector<Vector3d> &points) {
     double ss = normal.z() * (p1.x() * p2.y() - p2.x() * p1.y()) +
                 normal.x() * (p1.y() * p2.z() - p2.y() * p1.z()) +
                 normal.y() * (p1.z() * p2.x() - p2.z() * p1.x());
-    signed_area += ss;
+    area += ss;
   }
 
-  signed_area = std::abs(signed_area / 2.0);
+  area = std::abs(area / 2.0);
 
-  return signed_area * normal;
+  return area * normal;
 }
 
 double computePolygonArea(const std::vector<Vector3d> &points) {
