@@ -9,36 +9,39 @@
 
 
 double computePolyhedronVolume(const Vertices &vertices, const Faces &faces) {
-  double volume = 0.0;
+    double volume = 0.0;
 
-  // Iterate over each face
-  for (int i = 0; i < faces.rows(); ++i) {
-    Vector3d xc(0.0, 0.0, 0.0); // centroid of face i
-    std::vector<Vector3d> points;
+    // Iterate over each face
+    for (size_t i = 0; i < faces.size(); ++i) {
+        Vector3d xc(0.0, 0.0, 0.0); // centroid of face i
+        vector<Vector3d> points;
 
-    for (int j = 0; j < faces.cols(); ++j) {
-      Vector3d p = vertices.row(faces(i, j) -
-                                1); // Adjust for 1-based to 0-based indexing
-      points.push_back(p);
-      xc += p;
+        // Iterate over vertices of the current face
+        for (size_t j = 0; j < faces[i].size(); ++j) {
+            Vector3d p = vertices.row(faces[i](j) - 1); // Adjust for 1-based indexing
+            points.push_back(p);
+            xc += p;
+        }
+
+        // Centroid xc
+        xc /= static_cast<double>(faces[i].size());
+
+        // Select three points to define the plane of the face
+        Vector3d p0 = vertices.row(faces  - 1);
+        Vector3d p1 = vertices.row(faces  - 1);
+        Vector3d p2 = vertices.row(faces  - 1);
+
+        // Compute the normal vector to the face
+        Vector3d normal = (p1 - p0).cross(p2 - p0);
+        normal.normalize();
+
+        // Compute the area of the face (polygon)
+        double area = computePolygonArea(points);
+
+        // Compute the volume contribution using the centroid and area
+        volume += abs(xc.dot(normal) * area);
     }
 
-    // Centroid xc
-    xc /= static_cast<double>(faces.cols());
-
-    Vector3d p0 =
-        vertices.row(faces(i, 0) - 1); // Adjust for 1-based to 0-based indexing
-    Vector3d p1 = vertices.row(faces(i, 1) - 1);
-    Vector3d p2 = vertices.row(faces(i, 2) - 1);
-
-    // Normal vector to that face
-    Vector3d normal = (p1 - p0).cross(p2 - p0);
-    normal.normalize();
-
-    // Compute the area of the face (polygon)
-    double area = computePolygonArea(points);
-    volume += std::abs(xc.dot(normal) * area);
-  }
-
-  return volume / 3.0;
+    // Return one-third of the computed volume (since we computed 3 times the actual volume)
+    return volume / 3.0;
 }

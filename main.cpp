@@ -15,9 +15,9 @@
 #include "area.h"
 #include "volume.h"
 
-void display(const Vertices &vertices, const Faces &faces, const std::string type) {
+void display(const Vertices &vertices, const Faces &faces, const string type) {
     for (int i = 0; i < faces.rows(); ++i) {
-        std::vector<Vector3d> points;
+        vector<Vector3d> points;
         for (int j = 0; j < faces.cols(); ++j) {
             Vector3d p = vertices.row(
                 faces(i, j) - 1); // Adjust for 1-based to 0-based indexing

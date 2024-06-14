@@ -9,7 +9,7 @@
 #include "area.h"
 
 
-Vector3d computePolygonVectorArea(const std::vector<Vector3d> &points) {
+Vector3d computePolygonVectorArea(const vector<Vector3d> &points) {
   Vector3d p1 = points[0];
   Vector3d p2 = points[1];
   Vector3d p3 = points[2];
@@ -34,11 +34,11 @@ Vector3d computePolygonVectorArea(const std::vector<Vector3d> &points) {
     area += ss;
   }
 
-  area = std::abs(area / 2.0);
+  area = abs(area / 2.0);
 
   return area * normal;
 }
 
-double computePolygonArea(const std::vector<Vector3d> &points) {
+double computePolygonArea(const vector<Vector3d> &points) {
   return sqrt(computePolygonVectorArea(points).dot(computePolygonVectorArea(points)));
 }

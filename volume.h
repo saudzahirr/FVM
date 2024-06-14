@@ -11,6 +11,7 @@
 
 
 typedef Matrix<double, Dynamic, 3> Vertices;
-typedef Matrix<int, Dynamic, Dynamic> Faces;
+typedef Matrix<int, 1, Dynamic> Face;
+typedef vector<Face> Faces;
 
 double computePolyhedronVolume(const Vertices &vertices, const Faces &faces);

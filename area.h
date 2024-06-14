@@ -12,8 +12,9 @@
 #include <vector>
 
 using namespace Eigen;
+using namespace std;
 
 
-Vector3d computePolygonVectorArea(const std::vector<Vector3d> &points);
+Vector3d computePolygonVectorArea(const vector<Vector3d> &points);
 
-double computePolygonArea(const std::vector<Vector3d> &points);
+double computePolygonArea(const vector<Vector3d> &points);
